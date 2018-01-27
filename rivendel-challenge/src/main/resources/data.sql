@@ -1,0 +1,1 @@
+insert into activity (id, description, logged_at) VALUES ('af69db7c-03a1-11e8-ba89-0ed5f89f718b', 'TEST', PARSEDATETIME('27-01-2018', 'dd-MM-yyyy'));
