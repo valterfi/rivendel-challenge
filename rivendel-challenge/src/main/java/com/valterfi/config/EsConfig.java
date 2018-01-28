@@ -1,4 +1,4 @@
-package com.valterfi;
+package com.valterfi.config;
 
 import java.net.InetAddress;
 import org.elasticsearch.client.Client;
