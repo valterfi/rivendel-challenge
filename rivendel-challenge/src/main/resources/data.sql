@@ -1,1 +1,22 @@
-insert into activity (id, description, logged_at) VALUES ('af69db7c-03a1-11e8-ba89-0ed5f89f718b', 'TEST', PARSEDATETIME('27-01-2018', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (1, '#FE5F55', 'WEIGHT', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (2, '#F0B67F', 'EAT', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (3, '#D6D1B1', 'DRINK', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (4, '#C7EFCF', 'WORKOUT', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (5, '#EEF5DB', 'HUNGRY', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (6, '#D496A7', 'SLEEP', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (7, '#F1DEDE', 'WAKEUP', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (8, '#5D576B', 'SEX', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (9, '#FE938C', 'BATH', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (10, '#6CD4FF', 'PARTY', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (11, '#261C15', 'READ', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (12, '#F05D23', 'WRITE', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (13, '#D6D1B1', 'PRAY', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (14, '#C5D86D', 'MEDITATE', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (15, '#55828B', 'WORK', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (16, '#87BBA2', 'TRAVEL', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (17, '#F28F3B', 'LISTEN', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+insert into kind (id, color, description, created_at, updated_at) VALUES (18, '#364958', 'STUDY', PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'), PARSEDATETIME('23-09-2016', 'dd-MM-yyyy'));
+
+
+insert into activity (id, kind, description, logged_at) VALUES ('af69db7c-03a1-11e8-ba89-0ed5f89f718b', 3, 'water', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+insert into activity (id, kind, description, logged_at) VALUES ('23e23408-0466-11e8-ba89-0ed5f89f718b', 3, 'coffee', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));

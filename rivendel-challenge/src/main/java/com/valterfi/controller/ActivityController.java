@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.domain.Activity;
+import com.valterfi.domain.view.Views;
 import com.valterfi.repository.ActivityRepository;
 
 @RestController
@@ -18,7 +20,8 @@ public class ActivityController {
         this.activityRepository = activityRepository;
     }
     
-    @GetMapping("/")
+    @GetMapping("")
+    @JsonView(Views.Public.class)
     public List<Activity> getAll() {
         return activityRepository.findAll();
     }

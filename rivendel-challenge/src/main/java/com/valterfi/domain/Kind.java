@@ -5,10 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.constant.Constants;
@@ -19,32 +16,36 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "activity")
-public class Activity {
+@Table(name = "kind")
+public class Kind {
     
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue
     @JsonView(Views.Public.class)
     private String id;
     
     @JsonView(Views.Public.class)
-    @ManyToOne
-    @JoinColumn(name = "kind")
-    private Kind kind;
+    @Column(name = "color", nullable = false)
+    private String color;
+    
+    @JsonView(Views.Kind.class)
+    @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
     
     @JsonView(Views.Public.class)
     @Column(name = "description", nullable = false)
     private String description;
     
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Kind.class)
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
-    @Column(name = "logged_at", nullable = false)
-    private Date loggedAt;
+    @Column(name = "updated_at", nullable = true)
+    private Date updatedAt;
     
-    public Activity(String description, Date loggedAt) {
+    public Kind(String description, String color) {
         this.description = description;
-        this.loggedAt = loggedAt;
+        this.color = color;
+        this.createdAt = new Date();
     }
 
 }
