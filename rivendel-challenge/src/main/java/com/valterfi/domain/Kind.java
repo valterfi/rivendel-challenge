@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.constant.Constants;
@@ -25,22 +26,26 @@ public class Kind {
     private String id;
     
     @JsonView(Views.Public.class)
-    @Column(name = "color", nullable = false)
+    @Column(name = "color", nullable = true)
     private String color;
     
     @JsonView(Views.Kind.class)
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = true)
     private Date createdAt;
     
     @JsonView(Views.Public.class)
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description;
     
     @JsonView(Views.Kind.class)
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
     @Column(name = "updated_at", nullable = true)
     private Date updatedAt;
+    
+    @JsonView(Views.Kind.class)
+    @Transient
+    private String tags = "";
     
     public Kind(String description, String color) {
         this.description = description;

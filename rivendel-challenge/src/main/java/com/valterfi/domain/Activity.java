@@ -1,6 +1,7 @@
 package com.valterfi.domain;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,17 +30,17 @@ public class Activity {
     private String id;
     
     @JsonView(Views.Public.class)
-    @ManyToOne
-    @JoinColumn(name = "kind")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kind", nullable = true)
     private Kind kind;
     
     @JsonView(Views.Public.class)
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description;
     
     @JsonView(Views.Public.class)
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
-    @Column(name = "logged_at", nullable = false)
+    @Column(name = "logged_at", nullable = true)
     private Date loggedAt;
     
     public Activity(String description, Date loggedAt) {
