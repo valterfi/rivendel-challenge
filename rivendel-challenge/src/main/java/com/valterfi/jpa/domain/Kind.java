@@ -1,4 +1,4 @@
-package com.valterfi.domain;
+package com.valterfi.jpa.domain;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -12,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.constant.Constants;
 import com.valterfi.domain.view.Views;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(of = {"id", "description"})
 @Table(name = "kind")
 public class Kind {
     

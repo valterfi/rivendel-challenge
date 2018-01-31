@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valterfi.Application;
-import com.valterfi.domain.Activity;
+import com.valterfi.jpa.domain.Activity;
 import com.valterfi.repository.ActivityRepository;
 
 @RunWith(SpringRunner.class)
