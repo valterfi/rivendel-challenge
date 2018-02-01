@@ -20,3 +20,12 @@ insert into kind (id, color, description, created_at, updated_at) VALUES (18, '#
 
 insert into activity (id, kind, description, logged_at) VALUES ('af69db7c-03a1-11e8-ba89-0ed5f89f718b', 3, 'water', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
 insert into activity (id, kind, description, logged_at) VALUES ('23e23408-0466-11e8-ba89-0ed5f89f718b', 3, 'coffee', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+
+insert into activity (id, kind, description, logged_at) VALUES ('aa52a2ea-06f3-11e8-ba89-0ed5f89f718b', 3, 'coffee', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+insert into activity (id, kind, description, logged_at) VALUES ('5326e69c-06f4-11e8-ba89-0ed5f89f718b', 3, 'beer', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+insert into activity (id, kind, description, logged_at) VALUES ('64b08eb8-06f4-11e8-ba89-0ed5f89f718b', 3, 'vodka', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+insert into activity (id, kind, description, logged_at) VALUES ('775b97ba-06f4-11e8-ba89-0ed5f89f718b', 3, 'whisky', PARSEDATETIME('25-01-2018', 'dd-MM-yyyy'));
+
+
+
+
