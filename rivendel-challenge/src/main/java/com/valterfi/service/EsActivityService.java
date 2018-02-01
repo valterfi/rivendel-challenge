@@ -4,19 +4,19 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.valterfi.elasticsearch.domain.EsActivity;
-import com.valterfi.repository.EsActivityRepository;
+import com.valterfi.repository.EsActivityCustomRepository;
 
 @Service
 public class EsActivityService {
     
-    private final EsActivityRepository esActivityRepository;
+    private final EsActivityCustomRepository esActivityCustomRepository;
 
-    public EsActivityService(final EsActivityRepository esActivityRepository) {
-        this.esActivityRepository = esActivityRepository;
+    public EsActivityService(final EsActivityCustomRepository esActivityCustomRepository) {
+        this.esActivityCustomRepository = esActivityCustomRepository;
     }
     
     public List<EsActivity> find(Date startDate, Date endDate, String kind, String description) {
-        return esActivityRepository.find(startDate, endDate, kind, description);
+        return esActivityCustomRepository.find(startDate, endDate, kind, description);
         
     }
 

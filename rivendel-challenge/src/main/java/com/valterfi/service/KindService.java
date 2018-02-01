@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import com.valterfi.jpa.domain.Kind;
-import com.valterfi.repository.EsActivityRepository;
+import com.valterfi.repository.EsActivityCustomRepository;
 import com.valterfi.repository.KindRepository;
 
 @Service
@@ -12,9 +12,9 @@ public class KindService {
     
     private final KindRepository kindRepository;
     
-    private final EsActivityRepository esActivityRepository;
+    private final EsActivityCustomRepository esActivityRepository;
 
-    public KindService(final KindRepository kindRepository, final EsActivityRepository esActivityRepository) {
+    public KindService(final KindRepository kindRepository, final EsActivityCustomRepository esActivityRepository) {
         this.kindRepository = kindRepository;
         this.esActivityRepository = esActivityRepository;
     }

@@ -11,24 +11,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.valterfi.constant.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Document(indexName = "rivendel", type = "activity")
-public class EsActivity {
+@Document(indexName = "rivendel", type = "kind")
+public class EsKind {
     
     @Id
     private String id;
     
-    private String kind;
+    private String color;
+    
+    @JsonProperty("created_at")
+    @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
+    @Field(type = FieldType.Date, format = DateFormat.date_time)
+    private Date createdAt;
     
     private String description;
     
-    @JsonProperty("logged_at")
+    @JsonProperty("updated_at")
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
     @Field(type = FieldType.Date, format = DateFormat.date_time)
-    private Date loggedAt;
+    private Date updatedAt;
 
 }
