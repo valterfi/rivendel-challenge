@@ -17,21 +17,25 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.domain.view.Views;
 import com.valterfi.jpa.domain.Kind;
 import com.valterfi.repository.KindRepository;
+import com.valterfi.service.KindService;
 
 @RestController
 @RequestMapping(value = "/api/kinds", produces = APPLICATION_JSON_VALUE)
 public class KindController {
     
     private final KindRepository kindRepository;
+    
+    private final KindService kindService;
 
-    public KindController(final KindRepository kindRepository) {
+    public KindController(final KindRepository kindRepository, final KindService kindService) {
         this.kindRepository = kindRepository;
+        this.kindService = kindService;
     }
     
     @GetMapping("")
     @JsonView(Views.Kind.class)
     public List<Kind> getAll() {
-        return kindRepository.findAll();
+        return kindService.findAll();
     }
     
     @GetMapping("{id}")

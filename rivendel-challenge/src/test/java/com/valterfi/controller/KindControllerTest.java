@@ -2,12 +2,12 @@ package com.valterfi.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valterfi.Application;
 import com.valterfi.jpa.domain.Kind;
 import com.valterfi.repository.KindRepository;
+import com.valterfi.service.KindService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
@@ -42,9 +43,12 @@ public class KindControllerTest {
     @Mock
     private KindRepository kindRepository;
     
+    @Mock
+    private KindService kindService;
+    
     @Before
     public void setUp() {
-        KindController kindController = new KindController(kindRepository);
+        KindController kindController = new KindController(kindRepository, kindService);
         kindControllerMvc = standaloneSetup(kindController).build();
     }
     
@@ -55,7 +59,7 @@ public class KindControllerTest {
         kinds.add(new Kind("description1", "#FE5F55"));
         kinds.add(new Kind("description2", "#F0B67F"));
         
-        when(kindRepository.findAll()).thenReturn(kinds);
+        when(kindService.findAll()).thenReturn(kinds);
         
         kindControllerMvc.perform(get("/api/kinds"))
                 .andExpect(status().isOk())
