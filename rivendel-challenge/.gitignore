@@ -32,6 +32,7 @@ local.properties
 .settings/**
 .loadpath
 /src/main/resources/rebel.xml
+/src/main/resources/h2/*
 
 
 # External tool builders
