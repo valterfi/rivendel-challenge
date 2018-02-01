@@ -21,14 +21,12 @@ public class KindService {
     
     public List<Kind> findAll(){
         List<Kind> kinds = kindRepository.findAll();
-        
         kinds.forEach(kind -> {
             List<String> topTags = esActivityRepository.findTopTags(kind.getId());
             if(!topTags.isEmpty()) {
                 kind.setTags(topTags.stream().collect(Collectors.joining(" ")));
             }
         });
-
         return kinds;
     }
     

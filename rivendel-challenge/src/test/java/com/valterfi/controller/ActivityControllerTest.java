@@ -1,17 +1,17 @@
 package com.valterfi.controller;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valterfi.Application;
 import com.valterfi.jpa.domain.Activity;
-import com.valterfi.repository.ActivityRepository;
+import com.valterfi.service.ActivityService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
@@ -40,11 +40,11 @@ public class ActivityControllerTest {
     private MockMvc activityControllerMvc;
     
     @Mock
-    private ActivityRepository activityRepository;
+    private ActivityService activityService;
     
     @Before
     public void setUp() {
-        ActivityController activityController = new ActivityController(activityRepository);
+        ActivityController activityController = new ActivityController(activityService);
         activityControllerMvc = standaloneSetup(activityController).build();
     }
     
@@ -55,7 +55,7 @@ public class ActivityControllerTest {
         activities.add(new Activity("description1", new Date()));
         activities.add(new Activity("description2", new Date()));
         
-        when(activityRepository.findAll()).thenReturn(activities);
+        when(activityService.findAll()).thenReturn(activities);
         
         activityControllerMvc.perform(get("/api/activities"))
                 .andExpect(status().isOk())
@@ -71,7 +71,7 @@ public class ActivityControllerTest {
         
         Activity activity = new Activity("description1", new Date());
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
         
         activityControllerMvc.perform(get("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6"))
                 .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class ActivityControllerTest {
     @Test
     public void testGetNotFound() throws Exception {
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
         
         activityControllerMvc.perform(get("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6"))
                 .andExpect(status().isNotFound());
@@ -95,7 +95,7 @@ public class ActivityControllerTest {
         
         Activity activity = new Activity("description1", new Date());
         
-        when(activityRepository.save(activity)).thenReturn(activity);
+        when(activityService.save(activity)).thenReturn(activity);
         
         activityControllerMvc.perform(post("/api/activities")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -111,8 +111,8 @@ public class ActivityControllerTest {
         
         Activity activity = new Activity("description1", new Date());
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
-        when(activityRepository.save(activity)).thenReturn(activity);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
+        when(activityService.save(activity)).thenReturn(activity);
         
         activityControllerMvc.perform(put("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -128,7 +128,7 @@ public class ActivityControllerTest {
         
         Activity activity = new Activity("description1", new Date());
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
         
         activityControllerMvc.perform(put("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -142,8 +142,8 @@ public class ActivityControllerTest {
         
         Activity activity = new Activity("description1", new Date());
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
-        doNothing().when(activityRepository).delete(activity);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(activity);
+        doNothing().when(activityService).delete(activity);
         
         activityControllerMvc.perform(delete("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6"))
                 .andExpect(status().isOk());
@@ -153,7 +153,7 @@ public class ActivityControllerTest {
     @Test
     public void testDeleteNotFound() throws Exception {
         
-        when(activityRepository.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
+        when(activityService.findOne("269e4303-ac23-484e-a2ec-0f074bccfbe6")).thenReturn(null);
         
         activityControllerMvc.perform(delete("/api/activities/269e4303-ac23-484e-a2ec-0f074bccfbe6"))
                 .andExpect(status().isNotFound());

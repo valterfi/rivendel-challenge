@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.domain.view.Views;
 import com.valterfi.jpa.domain.Activity;
-import com.valterfi.repository.ActivityRepository;
+import com.valterfi.service.ActivityService;
 
 @RestController
 @RequestMapping(value = "/api/activities", produces = APPLICATION_JSON_VALUE)
 public class ActivityController {
     
-    private final ActivityRepository activityRepository;
+    private final ActivityService activityService;
 
-    public ActivityController(final ActivityRepository activityRepository) {
-        this.activityRepository = activityRepository;
+    public ActivityController(final ActivityService activityService) {
+        this.activityService = activityService;
     }
     
     @GetMapping("")
     @JsonView(Views.Public.class)
     public List<Activity> getAll() {
-        return activityRepository.findAll();
+        return activityService.findAll();
     }
     
     @GetMapping("{id}")
     @JsonView(Views.Public.class)
     public ResponseEntity<Activity> get(@PathVariable("id") String id) {
-        Activity activity = activityRepository.findOne(id);
+        Activity activity = activityService.findOne(id);
         if(activity == null) {
             return ResponseEntity.notFound().build();
         }
@@ -45,12 +45,12 @@ public class ActivityController {
     
     @PostMapping("")
     public Activity create(@Valid @RequestBody Activity activity) {
-        return activityRepository.save(activity);
+        return activityService.save(activity);
     }
     
     @PutMapping("{id}")
     public ResponseEntity<Activity> update(@PathVariable(value = "id") String id, @Valid @RequestBody Activity activityDetails) {
-        Activity activity = activityRepository.findOne(id);
+        Activity activity = activityService.findOne(id);
         if(activity == null) {
             return ResponseEntity.notFound().build();
         }
@@ -59,18 +59,18 @@ public class ActivityController {
         activity.setKind(activityDetails.getKind());
         activity.setLoggedAt(activityDetails.getLoggedAt());
 
-        Activity updatedActivity = activityRepository.save(activity);
+        Activity updatedActivity = activityService.save(activity);
         return ResponseEntity.ok(updatedActivity);
     }
     
     @DeleteMapping("{id}")
     public ResponseEntity<Activity> delete(@PathVariable(value = "id") String id) {
-        Activity activity = activityRepository.findOne(id);
+        Activity activity = activityService.findOne(id);
         if(activity == null) {
             return ResponseEntity.notFound().build();
         }
 
-        activityRepository.delete(activity);
+        activityService.delete(activity);
         return ResponseEntity.ok().build();
     }
     
