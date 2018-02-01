@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.constant.Constants;
-import com.valterfi.domain.view.Views;
+import com.valterfi.jpa.domain.view.Views;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.valterfi.domain.view;
+package com.valterfi.jpa.domain.view;
 
 public class Views {
     
