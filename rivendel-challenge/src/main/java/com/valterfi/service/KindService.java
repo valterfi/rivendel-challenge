@@ -31,5 +31,24 @@ public class KindService {
 
         return kinds;
     }
+    
+    public Kind findOne(String id) {
+        Kind kind = kindRepository.findOne(id);
+        if(kind != null) {
+            List<String> topTags = esActivityRepository.findTopTags(kind.getId());
+            if(!topTags.isEmpty()) {
+                kind.setTags(topTags.stream().collect(Collectors.joining(" ")));
+            }
+        }
+        return kind;
+    }
+    
+    public Kind save(Kind kind) {
+        return kindRepository.save(kind);
+    }
+    
+    public void delete(Kind kind) {
+        kindRepository.delete(kind);
+    }
 
 }

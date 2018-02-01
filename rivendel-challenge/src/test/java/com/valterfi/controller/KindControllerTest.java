@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valterfi.Application;
 import com.valterfi.jpa.domain.Kind;
-import com.valterfi.repository.KindRepository;
 import com.valterfi.service.KindService;
 
 @RunWith(SpringRunner.class)
@@ -41,14 +40,11 @@ public class KindControllerTest {
     private MockMvc kindControllerMvc;
     
     @Mock
-    private KindRepository kindRepository;
-    
-    @Mock
     private KindService kindService;
     
     @Before
     public void setUp() {
-        KindController kindController = new KindController(kindRepository, kindService);
+        KindController kindController = new KindController(kindService);
         kindControllerMvc = standaloneSetup(kindController).build();
     }
     
@@ -77,7 +73,7 @@ public class KindControllerTest {
         
         Kind kind = new Kind("description1", "#FE5F55");
         
-        when(kindRepository.findOne("1")).thenReturn(kind);
+        when(kindService.findOne("1")).thenReturn(kind);
         
         kindControllerMvc.perform(get("/api/kinds/1"))
                 .andExpect(status().isOk())
@@ -90,7 +86,7 @@ public class KindControllerTest {
     @Test
     public void testGetNotFound() throws Exception {
         
-        when(kindRepository.findOne("1")).thenReturn(null);
+        when(kindService.findOne("1")).thenReturn(null);
         
         kindControllerMvc.perform(get("/api/kinds/1"))
                 .andExpect(status().isNotFound());
@@ -102,7 +98,7 @@ public class KindControllerTest {
         
         Kind kind = new Kind("description1", "#FE5F55");
         
-        when(kindRepository.save(kind)).thenReturn(kind);
+        when(kindService.save(kind)).thenReturn(kind);
         
         kindControllerMvc.perform(post("/api/kinds")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -118,8 +114,8 @@ public class KindControllerTest {
         
         Kind kind = new Kind("description1", "#FE5F55");
         
-        when(kindRepository.findOne("1")).thenReturn(kind);
-        when(kindRepository.save(kind)).thenReturn(kind);
+        when(kindService.findOne("1")).thenReturn(kind);
+        when(kindService.save(kind)).thenReturn(kind);
         
         kindControllerMvc.perform(put("/api/kinds/1")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -136,7 +132,7 @@ public class KindControllerTest {
         
         Kind kind = new Kind("description1", "#FE5F55");
         
-        when(kindRepository.findOne("1")).thenReturn(null);
+        when(kindService.findOne("1")).thenReturn(null);
         
         kindControllerMvc.perform(put("/api/kinds/1")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -150,8 +146,8 @@ public class KindControllerTest {
         
         Kind kind = new Kind("description1", "#FE5F55");
         
-        when(kindRepository.findOne("1")).thenReturn(kind);
-        doNothing().when(kindRepository).delete(kind);
+        when(kindService.findOne("1")).thenReturn(kind);
+        doNothing().when(kindService).delete(kind);
         
         kindControllerMvc.perform(delete("/api/kinds/1"))
                 .andExpect(status().isOk());
@@ -161,7 +157,7 @@ public class KindControllerTest {
     @Test
     public void testDeleteNotFound() throws Exception {
         
-        when(kindRepository.findOne("1")).thenReturn(null);
+        when(kindService.findOne("1")).thenReturn(null);
         
         kindControllerMvc.perform(delete("/api/kinds/1"))
                 .andExpect(status().isNotFound());

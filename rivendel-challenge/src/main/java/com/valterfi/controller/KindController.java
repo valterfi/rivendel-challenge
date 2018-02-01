@@ -16,19 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.domain.view.Views;
 import com.valterfi.jpa.domain.Kind;
-import com.valterfi.repository.KindRepository;
 import com.valterfi.service.KindService;
 
 @RestController
 @RequestMapping(value = "/api/kinds", produces = APPLICATION_JSON_VALUE)
 public class KindController {
     
-    private final KindRepository kindRepository;
-    
     private final KindService kindService;
 
-    public KindController(final KindRepository kindRepository, final KindService kindService) {
-        this.kindRepository = kindRepository;
+    public KindController(final KindService kindService) {
         this.kindService = kindService;
     }
     
@@ -39,9 +35,9 @@ public class KindController {
     }
     
     @GetMapping("{id}")
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Kind.class)
     public ResponseEntity<Kind> get(@PathVariable("id") String id) {
-        Kind kind = kindRepository.findOne(id);
+        Kind kind = kindService.findOne(id);
         if(kind == null) {
             return ResponseEntity.notFound().build();
         }
@@ -49,13 +45,15 @@ public class KindController {
     }
     
     @PostMapping("")
+    @JsonView(Views.Kind.class)
     public Kind create(@Valid @RequestBody Kind kind) {
-        return kindRepository.save(kind);
+        return kindService.save(kind);
     }
     
     @PutMapping("{id}")
+    @JsonView(Views.Kind.class)
     public ResponseEntity<Kind> update(@PathVariable(value = "id") String id, @Valid @RequestBody Kind kindDetails) {
-        Kind kind = kindRepository.findOne(id);
+        Kind kind = kindService.findOne(id);
         if(kind == null) {
             return ResponseEntity.notFound().build();
         }
@@ -64,18 +62,19 @@ public class KindController {
         kind.setDescription(kindDetails.getDescription());
         kind.setUpdatedAt(new Date());
 
-        Kind updatedKind = kindRepository.save(kind);
+        Kind updatedKind = kindService.save(kind);
         return ResponseEntity.ok(updatedKind);
     }
     
     @DeleteMapping("{id}")
+    @JsonView(Views.Kind.class)
     public ResponseEntity<Kind> delete(@PathVariable(value = "id") String id) {
-        Kind kind = kindRepository.findOne(id);
+        Kind kind = kindService.findOne(id);
         if(kind == null) {
             return ResponseEntity.notFound().build();
         }
 
-        kindRepository.delete(kind);
+        kindService.delete(kind);
         return ResponseEntity.ok().build();
     }
 
