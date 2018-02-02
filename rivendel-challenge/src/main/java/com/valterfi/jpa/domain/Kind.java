@@ -48,7 +48,7 @@ public class Kind {
     
     @JsonIgnore
     @Column(name = "deleted", nullable = false)
-    private boolean deleted;
+    private boolean deleted = false;
     
     @JsonView(Views.Kind.class)
     @Transient

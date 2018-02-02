@@ -40,7 +40,7 @@ public class KindServiceTest {
         List<Kind> dataKinds = new ArrayList<Kind>();
         dataKinds.add(new Kind("3", "description1", "#FE5F55"));
         dataKinds.add(new Kind("4", "description2", "#F0B67F"));
-        when(kindRepository.findAll()).thenReturn(dataKinds);
+        when(kindRepository.findByDeleted(false)).thenReturn(dataKinds);
 
         List<String> topTags = new ArrayList<String>();
         topTags.add("coffee");
@@ -65,7 +65,7 @@ public class KindServiceTest {
     public void testFindOne() {
         
         Kind dataKind = new Kind("3", "description1", "#FE5F55");
-        when(kindRepository.findOne("3")).thenReturn(dataKind);
+        when(kindRepository.findOneByIdAndDeleted("3", false)).thenReturn(dataKind);
         
         List<String> topTags = new ArrayList<String>();
         topTags.add("coffee");
@@ -86,13 +86,13 @@ public class KindServiceTest {
     public void testFindOneEmptyTopTags() {
         
         Kind dataKind = new Kind("3", "description1", "#FE5F55");
-        when(kindRepository.findOne("3")).thenReturn(dataKind);
+        when(kindRepository.findOneByIdAndDeleted("3", false)).thenReturn(dataKind);
         
         List<String> topTags = new ArrayList<String>();
         topTags.add("coffee");
         topTags.add("beer");
         topTags.add("vodka");
-        when(esActivityCustomRepository.findTopTags("3")).thenReturn(Collections.EMPTY_LIST);
+        when(esActivityCustomRepository.findTopTags("3")).thenReturn(Collections.emptyList());
         
         Kind kind = kindService.findOne("3");
         
@@ -106,7 +106,7 @@ public class KindServiceTest {
     @Test
     public void testFindOneNull() {
         
-        when(kindRepository.findOne("3")).thenReturn(null);
+        when(kindRepository.findOneByIdAndDeleted("3", false)).thenReturn(null);
         Kind kind = kindService.findOne("3");
                 
         assertThat(kind, nullValue());

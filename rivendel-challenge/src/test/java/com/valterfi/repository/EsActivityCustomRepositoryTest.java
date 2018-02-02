@@ -45,7 +45,7 @@ public class EsActivityCustomRepositoryTest {
         esTemplate.putMapping(EsActivity.class);
         esTemplate.refresh(EsActivity.class);
         
-        esKindRepository.save(new EsKind("3", "#F0B67F", parseDate("2018-09-23"), "DRINK", parseDate("2018-09-23")));
+        esKindRepository.save(new EsKind("3", "#F0B67F", parseDate("2018-09-23"), "DRINK", parseDate("2018-09-23"), false));
 
         esActivityRepository.save(new EsActivity("85d2c840-82d4-47d1-a2b8-1263451d7be5", "3", "water", parseDate("2018-01-25"), false));
         esActivityRepository.save(new EsActivity("e33a3412-0787-11e8-ba89-0ed5f89f718b", "3", "coffee", parseDate("2018-01-25"), false));
@@ -53,11 +53,6 @@ public class EsActivityCustomRepositoryTest {
         esActivityRepository.save(new EsActivity("f6d188f4-0787-11e8-ba89-0ed5f89f718b", "3", "beer", parseDate("2018-01-25"), false));
         esActivityRepository.save(new EsActivity("051b0cc8-0788-11e8-ba89-0ed5f89f718b", "3", "vodka", parseDate("2018-01-25"), false));
         esActivityRepository.save(new EsActivity("0cebc758-0788-11e8-ba89-0ed5f89f718b", "3", "whisky", parseDate("2018-01-25"), false));
-    }
-    
-    @After
-    public void after() {
-        esTemplate.deleteIndex(EsActivity.class);
     }
 
     @Test

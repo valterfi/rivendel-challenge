@@ -55,9 +55,14 @@ public class EsActivityCustomRepository {
     public List<String> findTopTags(String kind) {
         
         List<String> topTags = new ArrayList<String>();
+        
+        QueryBuilder builder = QueryBuilders
+                .boolQuery()
+                .must(matchQuery("kind", kind))
+                .must(termQuery("deleted", false));
                
         SearchResponse response = esTemplate.getClient().prepareSearch(INDEX).setTypes(ACTIVITY_TYPE)
-                            .setQuery(matchQuery("kind", kind))
+                            .setQuery(builder)
                             .addAggregation(terms("top-tags").field("description").size(3))
                             .execute().actionGet();
         

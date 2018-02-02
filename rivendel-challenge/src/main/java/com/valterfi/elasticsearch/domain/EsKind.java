@@ -33,5 +33,7 @@ public class EsKind {
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
     @Field(type = FieldType.Date, format = DateFormat.date_time)
     private Date updatedAt;
+    
+    private boolean deleted = false;
 
 }

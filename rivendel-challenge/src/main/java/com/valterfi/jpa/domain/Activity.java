@@ -48,7 +48,7 @@ public class Activity {
     
     @JsonIgnore
     @Column(name = "deleted", nullable = false)
-    private boolean deleted;
+    private boolean deleted = false;
     
     public Activity(String description, Date loggedAt) {
         this.description = description;

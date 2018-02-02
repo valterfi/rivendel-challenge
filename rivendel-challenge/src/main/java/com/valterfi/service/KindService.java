@@ -20,7 +20,7 @@ public class KindService {
     }
     
     public List<Kind> findAll(){
-        List<Kind> kinds = kindRepository.findAll();
+        List<Kind> kinds = kindRepository.findByDeleted(false);
         kinds.forEach(kind -> {
             List<String> topTags = esActivityCustomRepository.findTopTags(kind.getId());
             if(!topTags.isEmpty()) {
@@ -31,7 +31,7 @@ public class KindService {
     }
     
     public Kind findOne(String id) {
-        Kind kind = kindRepository.findOne(id);
+        Kind kind = kindRepository.findOneByIdAndDeleted(id, false);
         if(kind != null) {
             List<String> topTags = esActivityCustomRepository.findTopTags(kind.getId());
             if(!topTags.isEmpty()) {
@@ -46,7 +46,8 @@ public class KindService {
     }
     
     public void delete(Kind kind) {
-        kindRepository.delete(kind);
+        kind.setDeleted(true);
+        kindRepository.save(kind);
     }
 
 }

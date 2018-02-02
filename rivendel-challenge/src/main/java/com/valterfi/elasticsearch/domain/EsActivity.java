@@ -37,6 +37,6 @@ public class EsActivity {
     @JsonView(Views.Public.class)
     private Date loggedAt;
     
-    private boolean deleted;
+    private boolean deleted = false;
 
 }
