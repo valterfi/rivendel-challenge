@@ -54,5 +54,12 @@ public class Kind {
         this.color = color;
         this.createdAt = new Date();
     }
+    
+    public Kind(String id, String description, String color) {
+        this.id = id;
+        this.description = description;
+        this.color = color;
+        this.createdAt = new Date();
+    }
 
 }

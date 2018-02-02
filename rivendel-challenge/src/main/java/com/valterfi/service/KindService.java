@@ -12,17 +12,17 @@ public class KindService {
     
     private final KindRepository kindRepository;
     
-    private final EsActivityCustomRepository esActivityRepository;
+    private final EsActivityCustomRepository esActivityCustomRepository;
 
     public KindService(final KindRepository kindRepository, final EsActivityCustomRepository esActivityRepository) {
         this.kindRepository = kindRepository;
-        this.esActivityRepository = esActivityRepository;
+        this.esActivityCustomRepository = esActivityRepository;
     }
     
     public List<Kind> findAll(){
         List<Kind> kinds = kindRepository.findAll();
         kinds.forEach(kind -> {
-            List<String> topTags = esActivityRepository.findTopTags(kind.getId());
+            List<String> topTags = esActivityCustomRepository.findTopTags(kind.getId());
             if(!topTags.isEmpty()) {
                 kind.setTags(topTags.stream().collect(Collectors.joining(" ")));
             }
@@ -33,7 +33,7 @@ public class KindService {
     public Kind findOne(String id) {
         Kind kind = kindRepository.findOne(id);
         if(kind != null) {
-            List<String> topTags = esActivityRepository.findTopTags(kind.getId());
+            List<String> topTags = esActivityCustomRepository.findTopTags(kind.getId());
             if(!topTags.isEmpty()) {
                 kind.setTags(topTags.stream().collect(Collectors.joining(" ")));
             }
