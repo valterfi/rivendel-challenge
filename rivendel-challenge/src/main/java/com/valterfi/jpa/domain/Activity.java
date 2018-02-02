@@ -32,7 +32,7 @@ public class Activity {
     private String id;
     
     @JsonView(Views.Public.class)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "kind", nullable = true)
     private Kind kind;
     

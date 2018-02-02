@@ -27,7 +27,7 @@ public class ActivityService {
     }
     
     public void delete(Activity activity) {
-        activityRepository.save(activity);
+        activityRepository.delete(activity);
     }
 
 }
