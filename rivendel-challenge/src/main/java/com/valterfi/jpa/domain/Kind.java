@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.valterfi.constant.Constants;
 import com.valterfi.jpa.domain.view.Views;
@@ -44,6 +45,10 @@ public class Kind {
     @JsonFormat(pattern=Constants.JSON_FORMAT_DATE)
     @Column(name = "updated_at", nullable = true)
     private Date updatedAt;
+    
+    @JsonIgnore
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
     
     @JsonView(Views.Kind.class)
     @Transient

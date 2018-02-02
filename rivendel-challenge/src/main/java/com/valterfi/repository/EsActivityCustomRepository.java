@@ -1,7 +1,9 @@
 package com.valterfi.repository;
 
+import static com.valterfi.constant.Constants.ACTIVITY_TYPE;
+import static com.valterfi.constant.Constants.INDEX;
+import static com.valterfi.constant.Constants.JSON_FORMAT_DATE;
 import static com.valterfi.util.DateUtil.convertDateToFormat;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
@@ -11,14 +13,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Repository;
-import static com.valterfi.constant.Constants.*;
 import com.valterfi.elasticsearch.domain.EsActivity;
 
 @Repository
@@ -38,7 +40,12 @@ public class EsActivityCustomRepository {
                 .gte(strStartDate)
                 .lte(strEndDate);
         
-        FilteredQueryBuilder builder = filteredQuery(matchQuery("description", description), termQuery("kind", kind));
+        QueryBuilder builder = QueryBuilders
+                .boolQuery()
+                .must(termQuery("kind", kind))
+                .must(termQuery("deleted", false))
+                .must(matchQuery("description", description));
+        
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withIndices(INDEX).withTypes(ACTIVITY_TYPE).withQuery(builder).withFilter(rangeQueryBuilder).build();
         
         return esTemplate.queryForList(searchQuery, EsActivity.class);

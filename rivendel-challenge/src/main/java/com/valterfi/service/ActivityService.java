@@ -15,11 +15,11 @@ public class ActivityService {
     }
     
     public List<Activity> findAll() {
-        return activityRepository.findAll();
+        return activityRepository.findByDeleted(false);
     }
     
     public Activity findOne(String id) {
-        return activityRepository.findOne(id);
+        return activityRepository.findOneByIdAndDeleted(id, false);
     }
     
     public Activity save(Activity activity) {
@@ -27,7 +27,8 @@ public class ActivityService {
     }
     
     public void delete(Activity activity) {
-        activityRepository.delete(activity);
+        activity.setDeleted(true);
+        activityRepository.save(activity);
     }
 
 }
