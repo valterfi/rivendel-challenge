@@ -24,7 +24,7 @@ $ ${LOGSTASH_HOME}/bin/plugin install logstash-input-jdbc
 - Setar variável de ambiente `${RIVENDEL_APP_HOME}` com o endereço da app
 - Setar variável de ambiente `${RIVENDEL_DATASOURCE_URL}` com o endereço jdbc do database
 - Setar variável de ambiente `${RIVENDEL_JDBC_LIBRARY}` com  o endereço do jar do database
-- Setar variável de ambiente `${RIVENDEL_JDBC_CLASS}` com a classe do driver jbdbc do database
+- Setar variável de ambiente `${RIVENDEL_JDBC_CLASS}` com a classe do driver jdbc do database
 
 ### Instalação
 
