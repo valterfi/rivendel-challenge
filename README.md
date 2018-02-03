@@ -1,5 +1,5 @@
 # rivendel-challenge
-API Rest com SpringBoot usando Java 8 usando:
+API Rest com SpringBoot usando Java 8
 
 ### Tech
   * [Swagger] 
