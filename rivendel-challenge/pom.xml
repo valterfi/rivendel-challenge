@@ -5,7 +5,7 @@
 	<groupId>com.valterfi</groupId>
 	<artifactId>rivendel-challenge</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
