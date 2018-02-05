@@ -49,10 +49,9 @@ API disponível ao subir Spring Boot:
 http://localhost:8080/swagger-ui.html
 ```
 
-### TODOS
+### Alternativa
 
- - Dockerizar essa app Spring Boot com Elasticsearch e Logstash.
- - Deploy na cloud com essas configurações
+ - Criar uma imagem docker usando o arquivo Dockerfile versionado na aplicação
 
 [Swagger]: <https://swagger.io/>
 [H2 Database]: <http://www.h2database.com/>
